@@ -6,7 +6,7 @@ const forecast = document.getElementById("forecast");
 
 async function fetchWeather(city) {
   try {
-    const res = await fetch(`http://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${city}&days=3`);
+    const res = await fetch(`https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${city}&days=3`);
     const data = await res.json();
 
     data.error ? showError(data.error.message) : displayWeather(data);
@@ -78,8 +78,8 @@ function displayWeather(data) {
 
 searchBtn.addEventListener("click", () => fetchWeather(cityInput.value.trim()));
 
-cityInput.addEventListener("blur", () => {
-  if (cityInput.value.trim() !== "") {
+cityInput.addEventListener("keyup", (e) => {
+  if (e.key === "Enter" && cityInput.value.trim() !== "") {
     fetchWeather(cityInput.value.trim());
   }
 });
